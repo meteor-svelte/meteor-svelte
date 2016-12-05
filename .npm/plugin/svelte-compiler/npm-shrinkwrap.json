@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "svelte": {
+      "version": "1.0.7",
+      "resolved": "https://registry.npmjs.org/svelte/-/svelte-1.0.7.tgz",
+      "from": "svelte@>=1.0.7 <2.0.0"
+    },
+    "svelte-es5-meteor": {
+      "version": "0.0.2",
+      "resolved": "https://registry.npmjs.org/svelte-es5-meteor/-/svelte-es5-meteor-0.0.2.tgz",
+      "from": "svelte-es5-meteor@0.0.2"
+    }
+  }
+}
