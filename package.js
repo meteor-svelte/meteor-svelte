@@ -12,7 +12,8 @@ Package.registerBuildPlugin({
     'plugin.js'
   ],
   npmDependencies: {
-    'svelte-es5-meteor': '0.0.2',
+    htmlparser2: '3.9.2',
+    'svelte-es5-meteor': '0.0.3'
   }
 });
 
