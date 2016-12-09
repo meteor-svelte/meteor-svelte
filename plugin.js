@@ -39,7 +39,10 @@ SCp.processOneFileForTarget = function (file) {
 
   if (isSvelteComponent) {
     var result = svelte.compile(raw, {
-      filename: path
+      filename: path,
+      name: file.getBasename()
+        .slice(0, -5) // Remove .html extension
+        .replace(/[^a-z0-9_$]/ig, '_') // Ensure valid identifier
     });
 
     var transpiled = Babel.compile(result.code, Babel.getDefaultOptions());
