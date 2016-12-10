@@ -38,17 +38,31 @@ SCp.processOneFileForTarget = function (file) {
   });
 
   if (isSvelteComponent) {
-    var result = svelte.compile(raw, {
-      filename: path,
-      name: file.getBasename()
-        .slice(0, -5) // Remove .html extension
-        .replace(/[^a-z0-9_$]/ig, '_') // Ensure valid identifier
-    });
+    try {
+      var result = svelte.compile(raw, {
+        filename: path,
+        name: file.getBasename()
+          .slice(0, -5) // Remove .html extension
+          .replace(/[^a-z0-9_$]/ig, '_') // Ensure valid identifier
+      });
 
-    var transpiled = Babel.compile(result.code, Babel.getDefaultOptions());
+      var babelOptions = Babel.getDefaultOptions();
+      babelOptions.filename = file.getBasename();
 
-    file.addJavaScript({
-      data: transpiled.code
-    });
+      var transpiled = Babel.compile(result.code, babelOptions);
+
+      file.addJavaScript({
+        data: transpiled.code
+      });
+    } catch (e) {
+      // Throw unknown errors
+      if (!e.loc) throw e;
+
+      file.error({
+        message: e.message,
+        line: e.loc.line,
+        column: e.loc.column
+      });
+    }
   }
 };
