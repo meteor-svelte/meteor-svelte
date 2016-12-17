@@ -7,7 +7,7 @@ Package.describe({
 
 Package.registerBuildPlugin({
   name: 'svelte-compiler',
-  use: ['templating-tools@1.0.5', 'babel-compiler'],
+  use: ['caching-compiler@1.1.9', 'babel-compiler@6.13.0'],
   sources: [
     'plugin.js'
   ],

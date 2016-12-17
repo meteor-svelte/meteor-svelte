@@ -8,18 +8,48 @@ Plugin.registerCompiler({
   extensions: ['html'],
 }, () => new SvelteCompiler);
 
-class SvelteCompiler {
-  processFilesForTarget(files) {
-    files.forEach(file => {
-      this.processOneFileForTarget(file);
+class SvelteCompiler extends CachingCompiler {
+  constructor() {
+    super({
+      compilerName: 'svelte',
+      defaultCacheSize: 1024 * 1024 * 10
     });
   }
 
-  processOneFileForTarget(file) {
+  getCacheKey(file) {
+    return file.getSourceHash();
+  }
+
+  // The compile result returned from `compileOneFile` can be an array or an
+  // object. If the processed HTML file is not a Svelte component, the result is
+  // an array of HTML sections (head and/or body). Otherwise, it's an object
+  // with compiled JavaScript.
+  compileResultSize(result) {
+    let size = 0;
+
+    if (Array.isArray(result)) {
+      result.forEach(section => size += section.data.length);
+    } else {
+      size = result.data.length + result.sourceMap.toString().length;
+    }
+
+    return size;
+  }
+
+  addCompileResult(file, result) {
+    if (Array.isArray(result)) {
+      result.forEach(section => file.addHtml(section));
+    } else {
+      file.addJavaScript(result);
+    }
+  }
+
+  compileOneFile(file) {
     const raw = file.getContentsAsString();
     const path = file.getPathInPackage();
 
     let isSvelteComponent = true;
+    const sections = [];
 
     // Search for top level head and body tags. If at least one of these tags
     // exists, the file is not processed using the Svelte compiler. Instead, the
@@ -29,7 +59,7 @@ class SvelteCompiler {
       if (el.name === 'head' || el.name === 'body') {
         isSvelteComponent = false;
 
-        file.addHtml({
+        sections.push({
           section: el.name,
           data: htmlparser.DomUtils.getInnerHTML(el)
         });
@@ -37,7 +67,7 @@ class SvelteCompiler {
     });
 
     if (!isSvelteComponent) {
-      return;
+      return sections;
     }
 
     try {
@@ -48,7 +78,7 @@ class SvelteCompiler {
           .replace(/[^a-z0-9_$]/ig, '_') // Ensure valid identifier
       });
 
-      file.addJavaScript(this.transpileWithBabel(compiled, path));
+      return this.transpileWithBabel(compiled, path);
     } catch (e) {
       // Throw unknown errors
       if (!e.loc) throw e;
