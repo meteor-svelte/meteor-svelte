@@ -21,7 +21,7 @@ class SvelteCompiler extends CachingCompiler {
   // The compile result returned from `compileOneFile` can be an array or an
   // object. If the processed HTML file is not a Svelte component, the result is
   // an array of HTML sections (head and/or body). Otherwise, it's an object
-  // with compiled JavaScript.
+  // with JavaScript from a compiled Svelte component.
   compileResultSize(result) {
     let size = 0;
 
