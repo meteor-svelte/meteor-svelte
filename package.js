@@ -7,7 +7,7 @@ Package.describe({
 
 Package.registerBuildPlugin({
   name: 'svelte-compiler',
-  use: ['caching-compiler@1.1.9', 'babel-compiler@6.13.0'],
+  use: ['caching-compiler@1.1.9', 'babel-compiler@6.13.0', 'ecmascript@0.6.1'],
   sources: [
     'plugin.js'
   ],
