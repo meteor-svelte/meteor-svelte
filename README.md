@@ -4,14 +4,8 @@ Use [the magical disappearing UI framework](https://svelte.technology) in Meteor
 
 ## Installation
 
-To install `meteor-svelte`, run `meteor add klaussner:svelte` or edit `.meteor/packages` directly.
-Other plugins that are processing HTML files have to be removed:
-
-```diff
-+ klaussner:svelte
-- blaze-html-templates
-- static-html
-```
+To use `meteor-svelte`, run `meteor add klaussner:svelte` or add `klaussner:svelte` manually to `.meteor/packages`.
+Other packages that process HTML files, e.g., `blaze-html-templates` (the default for new Meteor projects) or `static-html`, have to be removed.
 
 ## Additional features
 
