@@ -1,6 +1,6 @@
 Package.describe({
   name: 'klaussner:svelte',
-  version: '0.0.1',
+  version: '1.0.0',
   summary: 'Use the magical disappearing UI framework in Meteor',
   git: 'https://github.com/klaussner/meteor-svelte.git'
 });
