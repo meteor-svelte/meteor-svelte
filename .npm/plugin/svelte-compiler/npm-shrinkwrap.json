@@ -78,9 +78,9 @@
       "from": "string_decoder@>=0.10.0 <0.11.0"
     },
     "svelte-es5-meteor": {
-      "version": "0.1.3",
-      "resolved": "https://registry.npmjs.org/svelte-es5-meteor/-/svelte-es5-meteor-0.1.3.tgz",
-      "from": "svelte-es5-meteor@0.1.3"
+      "version": "0.2.0",
+      "resolved": "https://registry.npmjs.org/svelte-es5-meteor/-/svelte-es5-meteor-0.2.0.tgz",
+      "from": "svelte-es5-meteor@0.2.0"
     },
     "util-deprecate": {
       "version": "1.0.2",
