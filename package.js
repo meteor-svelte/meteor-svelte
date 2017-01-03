@@ -2,7 +2,7 @@ Package.describe({
   name: 'svelte:compiler',
   version: '1.0.0',
   summary: 'Use the magical disappearing UI framework in Meteor',
-  git: 'https://github.com/klaussner/meteor-svelte.git'
+  git: 'https://github.com/meteor-svelte/meteor-svelte.git'
 });
 
 Package.registerBuildPlugin({
