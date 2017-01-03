@@ -19,10 +19,12 @@ Package.registerBuildPlugin({
 });
 
 Package.onUse(function (api) {
+  api.versionsFrom('1.4.2.3');
+
   api.use('isobuild:compiler-plugin@1.0.0');
 
-  api.imply('modules@0.7.7');
-  api.imply('ecmascript-runtime@0.3.15');
-  api.imply('babel-runtime@1.0.1');
-  api.imply('promise@0.8.8');
+  api.imply('modules');
+  api.imply('ecmascript-runtime');
+  api.imply('babel-runtime');
+  api.imply('promise');
 });
