@@ -8,7 +8,7 @@ Package.describe({
 Npm.depends({
   htmlparser2: '3.9.2',
   'source-map': '0.5.6',
-  'svelte-es5-meteor': '0.2.0'
+  'svelte-es5-meteor': '0.2.1'
 });
 
 Package.onUse(function (api) {
