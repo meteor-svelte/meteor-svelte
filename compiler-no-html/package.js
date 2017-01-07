@@ -7,7 +7,7 @@ Package.describe({
 
 Package.registerBuildPlugin({
   name: 'svelte-compiler',
-  use: ['svelte:core'],
+  use: ['svelte:core@1.0.0'],
   sources: [
     'plugin.js'
   ]
@@ -15,7 +15,5 @@ Package.registerBuildPlugin({
 
 Package.onUse(function (api) {
   api.use('isobuild:compiler-plugin@1.0.0');
-
-  api.versionsFrom('1.4.2.3');
-  api.imply('static-html');
+  api.imply('static-html@1.1.13');
 });

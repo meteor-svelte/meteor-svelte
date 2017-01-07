@@ -7,7 +7,7 @@ Package.describe({
 
 Package.registerBuildPlugin({
   name: 'svelte-compiler',
-  use: ['svelte:core'],
+  use: ['svelte:core@1.0.0'],
   sources: [
     'plugin.js'
   ]
