@@ -11,7 +11,10 @@ SvelteCompiler = class extends CachingCompiler {
   }
 
   getCacheKey(file) {
-    return file.getSourceHash();
+    return [
+      file.getPathInPackage(),
+      file.getSourceHash()
+    ];
   }
 
   // The compile result returned from `compileOneFile` can be an array or an
