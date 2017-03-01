@@ -1,6 +1,6 @@
-const htmlparser = Npm.require('htmlparser2');
-const sourcemap = Npm.require('source-map');
-const svelte = Npm.require('svelte-es5-meteor');
+import htmlparser from 'htmlparser2';
+import sourcemap from 'source-map';
+import svelte from 'svelte-es5-meteor';
 
 SvelteCompiler = class extends CachingCompiler {
   constructor() {
