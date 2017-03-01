@@ -63,8 +63,8 @@
       "from": "process-nextick-args@>=1.0.6 <1.1.0"
     },
     "readable-stream": {
-      "version": "2.2.2",
-      "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.2.2.tgz",
+      "version": "2.2.3",
+      "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.2.3.tgz",
       "from": "readable-stream@>=2.0.2 <3.0.0"
     },
     "source-map": {
@@ -78,9 +78,9 @@
       "from": "string_decoder@>=0.10.0 <0.11.0"
     },
     "svelte-es5-meteor": {
-      "version": "0.2.1",
-      "resolved": "https://registry.npmjs.org/svelte-es5-meteor/-/svelte-es5-meteor-0.2.1.tgz",
-      "from": "svelte-es5-meteor@0.2.1"
+      "version": "0.3.0",
+      "resolved": "https://registry.npmjs.org/svelte-es5-meteor/-/svelte-es5-meteor-0.3.0.tgz",
+      "from": "svelte-es5-meteor@0.3.0"
     },
     "util-deprecate": {
       "version": "1.0.2",
