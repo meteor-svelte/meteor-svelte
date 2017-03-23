@@ -1,6 +1,6 @@
 import htmlparser from 'htmlparser2';
 import sourcemap from 'source-map';
-import svelte from 'svelte-es5-meteor';
+import svelte from 'svelte';
 
 SvelteCompiler = class extends CachingCompiler {
   constructor() {
