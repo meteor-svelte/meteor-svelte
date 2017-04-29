@@ -5,13 +5,15 @@ Use [the magical disappearing UI framework](https://svelte.technology) in Meteor
 ## About
 
 This repository contains two Meteor build plugins, `svelte:compiler` and `svelte:compiler-no-html`.
-Both plugins compile Svelte components with the `.svelte` file extension but `svelte:compiler` also compiles `.html` files (the official file extension for Svelte components).
+`svelte:compiler` compiles files with both `.html` and `.svelte` extensions (`.html` is the official file extension for Svelte components).
+`svelte:compiler-no-html` only compiles files with the `.svelte` extension.
 Usually, `svelte:compiler` is the plugin you should install.
-However, if you want to use Svelte in a project that contains HTML files of a different format, e.g., Blaze templates, you can install `svelte:compiler-no-html` instead. 
+However, if you want to use Svelte in a project that contains HTML files of a different format, e.g., Blaze templates, you can install `svelte:compiler-no-html` instead.
 
 ## Installation
 
 Run `meteor add svelte:compiler[-no-html]` or add `svelte:compiler[-no-html]` manually to `.meteor/packages`.
+
 For `svelte:compiler`, other plugins that process HTML files, e.g., `blaze-html-templates` (the default for new Meteor projects) or `static-html`, have to be removed.
 
 ## Additional features
