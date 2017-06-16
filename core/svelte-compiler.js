@@ -43,6 +43,7 @@ SvelteCompiler = class extends CachingCompiler {
 
   compileOneFile(file) {
     const raw = file.getContentsAsString();
+    const basename = file.getBasename();
     const path = file.getPathInPackage();
 
     const extension = path.substring(path.lastIndexOf('.') + 1);
@@ -74,8 +75,8 @@ SvelteCompiler = class extends CachingCompiler {
     try {
       const compiled = svelte.compile(raw, {
         filename: path,
-        name: file.getBasename()
-          .slice(0, -(extension.length + 1)) // Remove extension
+        name: basename
+          .slice(0, basename.indexOf('.')) // Remove extension
           .replace(/[^a-z0-9_$]/ig, '_') // Ensure valid identifier
       });
 
