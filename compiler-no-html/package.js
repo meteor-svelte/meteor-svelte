@@ -1,6 +1,6 @@
 Package.describe({
   name: 'svelte:compiler-no-html',
-  version: '1.2.1',
+  version: '1.3.0',
   summary: 'Svelte compiler (ignores HTML files)',
   git: 'https://github.com/meteor-svelte/meteor-svelte.git'
 });

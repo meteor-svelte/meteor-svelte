@@ -1,4 +1,4 @@
 # Svelte compiler for Meteor
 
-This package contains the compiler class used by `svelte:compiler` and `svelte:compiler-no-html`.
-If you want to use Svelte with Meteor, use either `svelte:compiler` or `svelte:compiler-no-html`.
+This package contains the compiler class used by `svelte:compiler`.
+If you want to use Svelte with Meteor, please follow the [installation instructions](../README.md#installation).
