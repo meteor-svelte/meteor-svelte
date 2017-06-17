@@ -2,7 +2,8 @@ Package.describe({
   name: 'svelte:compiler',
   version: '1.3.1',
   summary: 'Svelte compiler',
-  git: 'https://github.com/meteor-svelte/meteor-svelte.git'
+  git: 'https://github.com/meteor-svelte/meteor-svelte.git',
+  documentation: '../README.md'
 });
 
 Package.registerBuildPlugin({
