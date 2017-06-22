@@ -8,7 +8,7 @@ Package.describe({
 Npm.depends({
   htmlparser2: '3.9.2',
   'source-map': '0.5.6',
-  svelte: '1.22.4'
+  svelte: '1.22.5'
 });
 
 Package.onUse(function (api) {
