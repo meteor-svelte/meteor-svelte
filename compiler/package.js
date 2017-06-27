@@ -1,6 +1,6 @@
 Package.describe({
   name: 'svelte:compiler',
-  version: '1.4.0',
+  version: '1.23.4_1',
   summary: 'Svelte compiler',
   git: 'https://github.com/meteor-svelte/meteor-svelte.git',
   documentation: '../README.md'
@@ -8,7 +8,7 @@ Package.describe({
 
 Package.registerBuildPlugin({
   name: 'svelte-compiler',
-  use: ['ecmascript@0.6.1', 'svelte:core@1.3.0'],
+  use: ['ecmascript@0.6.1', 'svelte:core@1.23.4_1'],
   sources: [
     'plugin.js'
   ]
