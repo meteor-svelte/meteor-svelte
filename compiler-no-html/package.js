@@ -15,5 +15,4 @@ Package.registerBuildPlugin({
 
 Package.onUse(function (api) {
   api.use('isobuild:compiler-plugin@1.0.0');
-  api.imply('static-html@1.1.13');
 });
