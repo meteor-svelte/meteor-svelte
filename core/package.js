@@ -29,7 +29,7 @@ Package.onUse(function (api) {
     'promise'
   ]);
 
-  // Make `SvelteCompiler` available to build plugins
+  // Make `SvelteCompiler` available to build plugins.
   api.mainModule('svelte-compiler.js');
   api.export('SvelteCompiler', 'server');
 });
