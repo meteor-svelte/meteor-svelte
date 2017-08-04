@@ -74,6 +74,7 @@ SvelteCompiler = class extends CachingCompiler {
 
     try {
       const compiled = svelte.compile(raw, {
+        dev: process.env.NODE_ENV !== 'production',
         filename: path,
         name: basename
           .slice(0, basename.indexOf('.')) // Remove extension

@@ -1,6 +1,6 @@
 Package.describe({
   name: 'svelte:core',
-  version: '1.27.0_1',
+  version: '1.27.0_2',
   summary: 'Svelte compiler core',
   git: 'https://github.com/meteor-svelte/meteor-svelte.git'
 });
