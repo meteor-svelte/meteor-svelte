@@ -118,6 +118,11 @@ SvelteCompiler = class extends CachingCompiler {
     const svelteConsumer = new sourcemap.SourceMapConsumer(svelteMap);
 
     babelConsumer.eachMapping(mapping => {
+      // Ignore mappings that don't have a source.
+      if (!mapping.source) {
+        return;
+      }
+
       const position = svelteConsumer.originalPositionFor({
         line: mapping.originalLine,
         column: mapping.originalColumn
