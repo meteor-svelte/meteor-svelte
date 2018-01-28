@@ -17,7 +17,7 @@ Package.onUse(function (api) {
   // Dependencies for `SvelteCompiler`
   api.use([
     'caching-compiler@1.1.9',
-    'babel-compiler@6.13.0',
+    'babel-compiler@6.13.0||7.0.0',
     'ecmascript@0.6.1'
   ]);
 
