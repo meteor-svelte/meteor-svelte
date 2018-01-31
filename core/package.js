@@ -1,6 +1,6 @@
 Package.describe({
   name: 'svelte:core',
-  version: '1.46.1_1',
+  version: '1.54.0_1',
   summary: 'Svelte compiler core',
   git: 'https://github.com/meteor-svelte/meteor-svelte.git'
 });
@@ -8,17 +8,17 @@ Package.describe({
 Npm.depends({
   htmlparser2: '3.9.2',
   'source-map': '0.5.6',
-  svelte: '1.46.1'
+  svelte: '1.54.0'
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom('1.4.2.3');
+  api.versionsFrom('1.6');
 
   // Dependencies for `SvelteCompiler`
   api.use([
-    'caching-compiler@1.1.9',
-    'babel-compiler@6.13.0||7.0.0',
-    'ecmascript@0.6.1'
+    'caching-compiler@1.1.11',
+    'babel-compiler@6.24.7||7.0.0',
+    'ecmascript@0.9.0'
   ]);
 
   // Dependencies for compiled Svelte components

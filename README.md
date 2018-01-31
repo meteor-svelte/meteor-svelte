@@ -5,6 +5,10 @@ Use [the magical disappearing UI framework](https://svelte.technology) with Mete
 ## Installation
 
 To use `meteor-svelte`, run `meteor add svelte:compiler` or add `svelte:compiler` manually to `.meteor/packages`.
+
+> **Note**: `svelte:compiler` 1.46.1_1 is the last version that works with Meteor 1.5 and older.
+> Later versions require at least Meteor 1.6.
+
 By default, `svelte:compiler` compiles files with `.html` and `.svelte` extensions (`.html` is the official file extension for Svelte components).
 If you want to use another package that processes HTML files in addition to `svelte:compiler`, e.g., `blaze-html-templates` or `static-html`, you can configure the extensions that the Svelte compiler is registered for by adding a `"svelte:compiler"` key to your app's `package.json` file:
 
