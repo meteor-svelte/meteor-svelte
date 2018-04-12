@@ -15,4 +15,4 @@ Plugin.registerCompiler({
     'html',
     'svelte'
   ]
-}, () => new SvelteCompiler);
+}, () => new SvelteCompiler(options));

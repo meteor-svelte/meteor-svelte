@@ -3,11 +3,13 @@ import sourcemap from 'source-map';
 import svelte from 'svelte';
 
 SvelteCompiler = class extends CachingCompiler {
-  constructor() {
+  constructor(options = {}) {
     super({
       compilerName: 'svelte',
       defaultCacheSize: 1024 * 1024 * 10
     });
+
+    this.options = options;
   }
 
   getCacheKey(file) {
