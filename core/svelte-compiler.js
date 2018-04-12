@@ -14,8 +14,10 @@ SvelteCompiler = class extends CachingCompiler {
 
   getCacheKey(file) {
     return [
+      this.options,
       file.getPathInPackage(),
-      file.getSourceHash()
+      file.getSourceHash(),
+      file.getArch()
     ];
   }
 
@@ -64,7 +66,7 @@ SvelteCompiler = class extends CachingCompiler {
 
           sections.push({
             section: el.name,
-            data: htmlparser.DomUtils.getInnerHTML(el)
+            data: htmlparser.DomUtils.getInnerHTML(el).trim()
           });
         }
       });
@@ -74,16 +76,33 @@ SvelteCompiler = class extends CachingCompiler {
       }
     }
 
-    try {
-      const compiled = svelte.compile(raw, {
-        dev: process.env.NODE_ENV !== 'production',
-        filename: path,
-        name: basename
-          .slice(0, basename.indexOf('.')) // Remove extension
-          .replace(/[^a-z0-9_$]/ig, '_') // Ensure valid identifier
-      });
+    const svelteOptions = {
+      dev: process.env.NODE_ENV !== 'production',
+      filename: path,
+      name: basename
+        .slice(0, basename.indexOf('.')) // Remove extension
+        .replace(/[^a-z0-9_$]/ig, '_') // Ensure valid identifier
+    };
 
-      return this.transpileWithBabel(compiled, path);
+    if (file.getArch().startsWith('os.')) {
+      svelteOptions.generate = 'ssr';
+    } else {
+      const { hydratable, css } = this.options;
+
+      if (hydratable === true) {
+        svelteOptions.hydratable = true;
+      }
+
+      if (css === false) {
+        svelteOptions.css = false;
+      }
+    }
+
+    try {
+      return this.transpileWithBabel(
+        svelte.compile(raw, svelteOptions),
+        path
+      );
     } catch (e) {
       // Throw unknown errors.
       if (!e.loc) throw e;
