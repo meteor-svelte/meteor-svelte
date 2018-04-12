@@ -1,23 +1,18 @@
 import { readFileSync } from 'fs';
+import findUp from 'find-up';
 
-let config;
+let options;
+const pkgPath = findUp.sync('package.json');
 
-// Read compiler configuration from `package.json`.
-try {
-  const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
-  config = pkg['svelte:compiler'];
-} catch (e) {
-  if (e.code === 'ENOENT') {
-    console.warn(
-      '\x1b[33m%s\x1b[0m',
-      "Warning: Svelte compiler couldn't find a `package.json` file.\n" +
-      "Please run `meteor` in the root folder of the application."
-    );
-  }
-} finally {
-  config = config || {};
+// Read compiler options from `package.json`.
+if (pkgPath) {
+  const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
+  options = pkg['svelte:compiler'];
 }
 
 Plugin.registerCompiler({
-  extensions: config.extensions || ['svelte', 'html'],
+  extensions: (options && options.extensions) || [
+    'html',
+    'svelte'
+  ]
 }, () => new SvelteCompiler);

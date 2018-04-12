@@ -11,7 +11,10 @@ Package.registerBuildPlugin({
   use: ['ecmascript@0.9.0', 'svelte:core@1.60.3_1'],
   sources: [
     'plugin.js'
-  ]
+  ],
+  npmDependencies: {
+    'find-up': '2.1.0'
+  }
 });
 
 Package.onUse(function (api) {
