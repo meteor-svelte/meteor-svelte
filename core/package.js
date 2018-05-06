@@ -1,6 +1,6 @@
 Package.describe({
   name: 'svelte:core',
-  version: '1.60.3-beta.0_1',
+  version: '1.64.1_1',
   summary: 'Svelte compiler core',
   git: 'https://github.com/meteor-svelte/meteor-svelte.git'
 });
@@ -8,7 +8,7 @@ Package.describe({
 Npm.depends({
   htmlparser2: '3.9.2',
   'source-map': '0.5.6',
-  svelte: '1.60.3'
+  svelte: '1.64.1'
 });
 
 Package.onUse(function (api) {
