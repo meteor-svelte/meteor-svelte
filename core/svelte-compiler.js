@@ -105,10 +105,26 @@ SvelteCompiler = class extends CachingCompiler {
       );
     } catch (e) {
       // Throw unknown errors.
-      if (!e.start) throw e;
+      if (!e.start) {
+        throw e;
+      }
+
+      let message;
+
+      if (e.frame) {
+        // Prepend a vertical bar to each line to prevent Meteor from trimming
+        // whitespace and moving the code frame indicator to the wrong position.
+        const frame = e.frame.split('\n').map(line => {
+          return `| ${line}`;
+        }).join('\n');
+
+        message = `${e.message}\n\n${frame}`;
+      } else {
+        message = e.message;
+      }
 
       file.error({
-        message: e.message,
+        message,
         line: e.start.line,
         column: e.start.column
       });
