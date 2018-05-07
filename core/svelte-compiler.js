@@ -100,17 +100,17 @@ SvelteCompiler = class extends CachingCompiler {
 
     try {
       return this.transpileWithBabel(
-        svelte.compile(raw, svelteOptions),
+        svelte.compile(raw, svelteOptions).js,
         path
       );
     } catch (e) {
       // Throw unknown errors.
-      if (!e.loc) throw e;
+      if (!e.start) throw e;
 
       file.error({
         message: e.message,
-        line: e.loc.line,
-        column: e.loc.column
+        line: e.start.line,
+        column: e.start.column
       });
     }
   }
