@@ -52,4 +52,7 @@ See the [Svelte guide](https://svelte.technology/guide#server-side-rendering), t
 
 ## Update Notes
 
-* 2018-01-31: Version 1.46.1_1 of `svelte:compiler` is the last version that works with Meteor 1.5 and older. Later versions require at least Meteor 1.6.
+* 2018-05-07: There are breaking changes in Svelte v2.
+Refer to [this blog post](https://svelte.technology/blog/version-2) for details on how to upgrade your code.
+* 2018-01-31: Version 1.46.1_1 of `svelte:compiler` is the last version that works with Meteor 1.5 and older.
+Later versions require at least Meteor 1.6.
