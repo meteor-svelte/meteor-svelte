@@ -2,7 +2,7 @@ import htmlparser from 'htmlparser2';
 import sourcemap from 'source-map';
 import svelte from 'svelte';
 
-SvelteCompiler = class extends CachingCompiler {
+SvelteCompiler = class SvelteCompiler extends CachingCompiler {
   constructor(options = {}) {
     super({
       compilerName: 'svelte',
