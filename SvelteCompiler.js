@@ -88,6 +88,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
         .replace(/[^a-z0-9_$]/ig, '_') // Ensure valid identifier
     };
 
+    // If the component was imported by server code, compile it for SSR.
     if (file.getArch().startsWith('os.')) {
       svelteOptions.generate = 'ssr';
     } else {
