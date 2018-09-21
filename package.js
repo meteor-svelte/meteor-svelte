@@ -1,6 +1,6 @@
 Package.describe({
   name: 'svelte:compiler',
-  version: '2.5.0_1',
+  version: '2.13.5_1',
   summary: 'Svelte compiler',
   git: 'https://github.com/meteor-svelte/meteor-svelte.git',
   documentation: 'README.md'
@@ -21,7 +21,7 @@ Package.registerBuildPlugin({
     'find-up': '2.1.0',
     htmlparser2: '3.9.2',
     'source-map': '0.5.6',
-    svelte: '2.5.0'
+    svelte: '2.13.5'
   }
 });
 
