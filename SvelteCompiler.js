@@ -101,6 +101,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     const raw = file.getContentsAsString();
     const basename = file.getBasename();
     const path = file.getPathInPackage();
+    const arch = file.getArch();
 
     const svelteOptions = {
       dev: process.env.NODE_ENV !== 'production',
@@ -111,7 +112,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     };
 
     // If the component was imported by server code, compile it for SSR.
-    if (file.getArch().startsWith('os.')) {
+    if (arch.startsWith('os.')) {
       svelteOptions.generate = 'ssr';
     } else {
       const { hydratable, css } = this.options;
@@ -128,7 +129,8 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     try {
       return this.transpileWithBabel(
         svelte.compile(raw, svelteOptions).js,
-        path
+        path,
+        arch === 'web.browser'
       );
     } catch (e) {
       // Throw unknown errors.
@@ -166,8 +168,11 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     }
   }
 
-  transpileWithBabel(source, path) {
-    const options = Babel.getDefaultOptions();
+  transpileWithBabel(source, path, modernBrowsers) {
+    const options = Babel.getDefaultOptions({
+      modernBrowsers
+    });
+
     options.filename = path;
 
     const transpiled = Babel.compile(source.code, options, {
