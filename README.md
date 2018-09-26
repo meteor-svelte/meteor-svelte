@@ -47,6 +47,7 @@ See the [Svelte guide](https://svelte.technology/guide#server-side-rendering), t
 ## Examples
 
 * ["Hello world" example from the Svelte guide](https://github.com/meteor-svelte/hello-world-example)
+* [Apollo integration](https://github.com/meteor-svelte/apollo-example)
 * [Tracker integration](https://github.com/meteor-svelte/tracker-example)
 * [Server-side rendering](https://github.com/meteor-svelte/ssr-example)
 
