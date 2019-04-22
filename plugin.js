@@ -11,8 +11,5 @@ if (pkgPath) {
 }
 
 Plugin.registerCompiler({
-  extensions: (options && options.extensions) || [
-    'html',
-    'svelte'
-  ]
+  extensions: (options && options.extensions) || ['svelte']
 }, () => new SvelteCompiler(options));
