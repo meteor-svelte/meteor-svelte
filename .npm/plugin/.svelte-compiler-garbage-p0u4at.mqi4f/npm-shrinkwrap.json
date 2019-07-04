@@ -42,9 +42,9 @@
       "integrity": "sha512-IgieNijUMbkDovyoKObU1DUhm1iwNYE/fuifEoEHfd1oZKZDaONBSkal7Y01shxsM49R4XaMdGez3WnF9UfiCQ=="
     },
     "inherits": {
-      "version": "2.0.4",
-      "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz",
-      "integrity": "sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ=="
+      "version": "2.0.3",
+      "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.3.tgz",
+      "integrity": "sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4="
     },
     "locate-path": {
       "version": "3.0.0",
@@ -97,9 +97,9 @@
       "integrity": "sha512-6YqyX6ZWEYguAxgZzHGL7SsCeGx3V2TtOTqZz1xSTSWnqsbWwbptafNyvf/ACquZUXV3DANr5BDIwNYe1mN42w=="
     },
     "svelte": {
-      "version": "3.6.4",
-      "resolved": "https://registry.npmjs.org/svelte/-/svelte-3.6.4.tgz",
-      "integrity": "sha512-oI2FAZK4iLUKwwf/ltn9Y9185+03LX3uMzKlVnLrkW5P1xazJnCOHBX5mI5FeyhSIPIyueTQtqJ9cQaEUMMXgA=="
+      "version": "3.4.4",
+      "resolved": "https://registry.npmjs.org/svelte/-/svelte-3.4.4.tgz",
+      "integrity": "sha512-O9tzroEWVPOQe1QITW1jP8LAJwXmCfDDGdkOCa9Y6NlJ+gQwn+/rhFbMQ+vu2PWPLZt1gxN8DjTFM4nOBuMLFg=="
     },
     "util-deprecate": {
       "version": "1.0.2",
