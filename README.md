@@ -8,8 +8,10 @@ To use `meteor-svelte`, run the following commands:
 
 ```
 $ meteor add svelte:compiler
-$ meteor npm install svelte
+$ meteor npm install svelte@<version>
 ```
+
+**Important:** The version of the `svelte` npm package should match the version of `svelte:compiler`.
 
 ## Options
 
