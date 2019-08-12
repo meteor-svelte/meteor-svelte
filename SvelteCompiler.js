@@ -1,6 +1,34 @@
-import htmlparser from 'htmlparser2';
-import sourcemap from 'source-map';
-import svelte from 'svelte/compiler';
+import { readFileSync } from 'fs';
+import findUp from 'find-up';
+
+// Read package information from user's `package.json`
+const pkgPath = findUp.sync('package.json');
+const pkg = pkgPath ? JSON.parse(readFileSync(pkgPath, 'utf8')) : {};
+const packages = Object.assign({}, pkg.dependencies, pkg.devDependencies);
+const root = pkgPath.substring(0, pkgPath.length - 12);
+
+// prefer the user installed/managed version
+function req (name) {
+  let mod;
+  if (pkgPath && packages[name]) {
+    try {
+      mod = require(root + 'node_modules/' + name);
+    } catch (e) {
+      console.warn('Meteor Svelte: "' + name + '" is defined in package.json, but could not be loaded. Did you run `meteor npm install`?');
+      console.log('Meteor Svelte: Falling back to embedded version of "' + name + '"');
+      mod = require(name);
+    }
+  } else {
+    mod = require(name);
+  }
+  return mod;
+}
+
+// Load the user installed/managed versions of these packages
+// :TODO: Do some helpful version checking on the optional user modules - htmlparser 4.0 does not work for example
+const htmlparser = req('htmlparser2');
+const sourcemap = req('source-map');
+const svelte = req('svelte/compiler');
 
 SvelteCompiler = class SvelteCompiler extends CachingCompiler {
   constructor(options = {}) {
