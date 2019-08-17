@@ -1,6 +1,5 @@
 import htmlparser from 'htmlparser2';
 import sourcemap from 'source-map';
-import svelte from 'svelte/compiler';
 
 SvelteCompiler = class SvelteCompiler extends CachingCompiler {
   constructor(options = {}) {
@@ -10,6 +9,18 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     });
 
     this.options = options;
+
+    // Don't attempt to require `svelte/compiler` during `meteor publish`.
+    if (!options.isPublishing) {
+      try {
+        this.svelte = require('svelte/compiler');
+      } catch (error) {
+        throw new Error(
+          'Cannot find the `svelte` package in your application. ' +
+          'Please install it with `meteor npm install `svelte`.'
+        );
+      }
+    }
   }
 
   getCacheKey(file) {
@@ -128,7 +139,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
 
     try {
       return this.transpileWithBabel(
-        svelte.compile(raw, svelteOptions).js,
+        this.svelte.compile(raw, svelteOptions).js,
         path,
         arch === 'web.browser'
       );

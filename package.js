@@ -21,8 +21,7 @@ Package.registerBuildPlugin({
     '@babel/runtime': '7.4.3',
     'find-up': '3.0.0',
     htmlparser2: '3.10.1',
-    'source-map': '0.5.6',
-    svelte: '3.6.7'
+    'source-map': '0.5.6'
   }
 });
 
