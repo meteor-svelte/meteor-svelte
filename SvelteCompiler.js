@@ -1,4 +1,5 @@
 import htmlparser from 'htmlparser2';
+import postcss from 'postcss';
 import sourcemap from 'source-map';
 
 SvelteCompiler = class SvelteCompiler extends CachingCompiler {
@@ -20,6 +21,17 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
           'Please install it with `meteor npm install `svelte`.'
         );
       }
+    }
+
+    if (options.postcss) {
+      this.postcss = postcss(options.postcss.map(plugin => {
+        if (typeof plugin == 'string') {
+          return require(plugin)();
+        } else {
+          const [packageName, options] = plugin;
+          return require(packageName)(options);
+        }
+      }));
     }
   }
 
@@ -60,11 +72,11 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       return;
     }
 
-    const raw = file.getContentsAsString();
+    const code = file.getContentsAsString();
     const sections = [];
     let isSvelteComponent = true;
 
-    htmlparser.parseDOM(raw).forEach(el => {
+    htmlparser.parseDOM(code).forEach(el => {
       if (el.name === 'head' || el.name === 'body') {
         isSvelteComponent = false;
 
@@ -98,7 +110,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     }
   }
 
-  compileOneFile(file) {
+  async compileOneFile(file) {
     // Search for head and body tags if lazy compilation isn't supported.
     // Otherwise, the file has already been parsed in `compileOneFileLater`.
     if (!file.supportsLazyCompilation) {
@@ -109,7 +121,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       }
     }
 
-    const raw = file.getContentsAsString();
+    let code = file.getContentsAsString();
     const basename = file.getBasename();
     const path = file.getPathInPackage();
     const arch = file.getArch();
@@ -137,9 +149,21 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       }
     }
 
+    if (this.postcss) {
+      code = (await this.svelte.preprocess(code, {
+        style: async ({ content, attributes }) => {
+          if (attributes.lang == 'postcss') {
+            return {
+              code: await this.postcss.process(content, { from: undefined })
+            }
+          }
+        }
+      })).code;
+    }
+
     try {
       return this.transpileWithBabel(
-        this.svelte.compile(raw, svelteOptions).js,
+        this.svelte.compile(code, svelteOptions).js,
         path,
         arch === 'web.browser'
       );
