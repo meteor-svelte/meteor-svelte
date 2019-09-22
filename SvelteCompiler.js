@@ -10,6 +10,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     });
 
     this.options = options;
+    this.babelCompiler = new BabelCompiler;
 
     // Don't attempt to require `svelte/compiler` during `meteor publish`.
     if (!options.isPublishing) {
@@ -46,6 +47,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
 
   setDiskCacheDirectory(cacheDirectory) {
     this.cacheDirectory = cacheDirectory;
+    this.babelCompiler.setDiskCacheDirectory(cacheDirectory);
   }
 
   // The compile result returned from `compileOneFile` can be an array or an
@@ -165,7 +167,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       return this.transpileWithBabel(
         this.svelte.compile(code, svelteOptions).js,
         path,
-        arch === 'web.browser'
+        file
       );
     } catch (e) {
       // Throw unknown errors.
@@ -203,22 +205,17 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     }
   }
 
-  transpileWithBabel(source, path, modernBrowsers) {
-    const options = Babel.getDefaultOptions({
-      modernBrowsers
-    });
-
-    options.filename = path;
-
-    const transpiled = Babel.compile(source.code, options, {
-      cacheDirectory: this.cacheDirectory
-    });
+  transpileWithBabel(source, path, file) {
+    const {
+      data,
+      sourceMap
+    } = this.babelCompiler.processOneFileForTarget(file, source.code);
 
     return {
       sourcePath: path,
       path,
-      data: transpiled.code,
-      sourceMap: this.combineSourceMaps(transpiled.map, source.map)
+      data,
+      sourceMap: this.combineSourceMaps(sourceMap, source.map)
     };
   }
 
