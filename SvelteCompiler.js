@@ -1,6 +1,6 @@
 import htmlparser from 'htmlparser2';
+import postcss from 'postcss';
 import sourcemap from 'source-map';
-import svelte from 'svelte/compiler';
 
 SvelteCompiler = class SvelteCompiler extends CachingCompiler {
   constructor(options = {}) {
@@ -10,6 +10,30 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     });
 
     this.options = options;
+    this.babelCompiler = new BabelCompiler;
+
+    // Don't attempt to require `svelte/compiler` during `meteor publish`.
+    if (!options.isPublishing) {
+      try {
+        this.svelte = require('svelte/compiler');
+      } catch (error) {
+        throw new Error(
+          'Cannot find the `svelte` package in your application. ' +
+          'Please install it with `meteor npm install `svelte`.'
+        );
+      }
+    }
+
+    if (options.postcss) {
+      this.postcss = postcss(options.postcss.map(plugin => {
+        if (typeof plugin == 'string') {
+          return require(plugin)();
+        } else {
+          const [packageName, options] = plugin;
+          return require(packageName)(options);
+        }
+      }));
+    }
   }
 
   getCacheKey(file) {
@@ -23,6 +47,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
 
   setDiskCacheDirectory(cacheDirectory) {
     this.cacheDirectory = cacheDirectory;
+    this.babelCompiler.setDiskCacheDirectory(cacheDirectory);
   }
 
   // The compile result returned from `compileOneFile` can be an array or an
@@ -49,11 +74,11 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       return;
     }
 
-    const raw = file.getContentsAsString();
+    const code = file.getContentsAsString();
     const sections = [];
     let isSvelteComponent = true;
 
-    htmlparser.parseDOM(raw).forEach(el => {
+    htmlparser.parseDOM(code).forEach(el => {
       if (el.name === 'head' || el.name === 'body') {
         isSvelteComponent = false;
 
@@ -87,7 +112,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     }
   }
 
-  compileOneFile(file) {
+  async compileOneFile(file) {
     // Search for head and body tags if lazy compilation isn't supported.
     // Otherwise, the file has already been parsed in `compileOneFileLater`.
     if (!file.supportsLazyCompilation) {
@@ -98,7 +123,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       }
     }
 
-    const raw = file.getContentsAsString();
+    let code = file.getContentsAsString();
     const basename = file.getBasename();
     const path = file.getPathInPackage();
     const arch = file.getArch();
@@ -126,11 +151,23 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       }
     }
 
+    if (this.postcss) {
+      code = (await this.svelte.preprocess(code, {
+        style: async ({ content, attributes }) => {
+          if (attributes.lang == 'postcss') {
+            return {
+              code: await this.postcss.process(content, { from: undefined })
+            }
+          }
+        }
+      })).code;
+    }
+
     try {
       return this.transpileWithBabel(
-        svelte.compile(raw, svelteOptions).js,
+        this.svelte.compile(code, svelteOptions).js,
         path,
-        arch === 'web.browser'
+        file
       );
     } catch (e) {
       // Throw unknown errors.
@@ -168,22 +205,17 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     }
   }
 
-  transpileWithBabel(source, path, modernBrowsers) {
-    const options = Babel.getDefaultOptions({
-      modernBrowsers
-    });
-
-    options.filename = path;
-
-    const transpiled = Babel.compile(source.code, options, {
-      cacheDirectory: this.cacheDirectory
-    });
+  transpileWithBabel(source, path, file) {
+    const {
+      data,
+      sourceMap
+    } = this.babelCompiler.processOneFileForTarget(file, source.code);
 
     return {
       sourcePath: path,
       path,
-      data: transpiled.code,
-      sourceMap: this.combineSourceMaps(transpiled.map, source.map)
+      data,
+      sourceMap: this.combineSourceMaps(sourceMap, source.map)
     };
   }
 
