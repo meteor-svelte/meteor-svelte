@@ -1,6 +1,6 @@
 Package.describe({
   name: 'svelte:compiler',
-  version: '4.0.0-beta.0',
+  version: '4.0.0-beta.1',
   summary: 'Svelte compiler',
   git: 'https://github.com/meteor-svelte/meteor-svelte.git',
   documentation: 'README.md'

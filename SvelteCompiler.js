@@ -24,6 +24,8 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       }
     }
 
+    this.svelteVersion = this.svelte?.VERSION ?? 'unknown';
+
     if (options.postcss) {
       this.postcss = postcss(options.postcss.map(plugin => {
         if (typeof plugin == 'string') {
@@ -41,13 +43,19 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       this.options,
       file.getPathInPackage(),
       file.getSourceHash(),
-      file.getArch()
+      file.getArch(),
+      this.svelteVersion
     ];
   }
 
   setDiskCacheDirectory(cacheDirectory) {
-    this.cacheDirectory = cacheDirectory;
-    this.babelCompiler.setDiskCacheDirectory(cacheDirectory);
+    this._diskCache = cacheDirectory;
+
+    // Babel doesn't use the Svelte version its cache keys, so we use a
+    // different cache directory for each version.
+    this.babelCompiler.setDiskCacheDirectory(
+      `${cacheDirectory}-babel-${this.svelteVersion}`
+    );
   }
 
   // The compile result returned from `compileOneFile` can be an array or an
