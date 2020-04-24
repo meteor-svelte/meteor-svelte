@@ -1,6 +1,22 @@
 import htmlparser from 'htmlparser2';
 import postcss from 'postcss';
 import sourcemap from 'source-map';
+import { parse, print, types } from 'recast';
+import acorn from 'recast/parsers/acorn';
+import { analyze, extract_names } from 'periscopic';
+
+const recastParser = {
+  parse(_, options) {
+    options.ecmaVersion = 2020;
+    return acorn.parse.apply(acorn, arguments);
+  }
+}
+
+const b = types.builders;
+
+const PREPROCESS_VERSION = 4;
+const TRACKER_WRAPPER_PREFIX = '_m_tracker'
+const TRACKER_WRAPPER_CREATOR = '_m_createReactiveWrapper'
 
 SvelteCompiler = class SvelteCompiler extends CachingCompiler {
   constructor(options = {}) {
@@ -13,7 +29,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     this.babelCompiler = new BabelCompiler;
 
     // Don't attempt to require `svelte/compiler` during `meteor publish`.
-    if (!options.isPublishing) {
+    if (!options.isPublishing) {
       try {
         this.svelte = require('svelte/compiler');
       } catch (error) {
@@ -41,13 +57,21 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       this.options,
       file.getPathInPackage(),
       file.getSourceHash(),
-      file.getArch()
+      file.getArch(),
+      {
+        svelteVersion: this.svelte.VERSION,
+        preprocessVersion: PREPROCESS_VERSION
+      }
     ];
   }
 
   setDiskCacheDirectory(cacheDirectory) {
-    this.cacheDirectory = cacheDirectory;
-    this.babelCompiler.setDiskCacheDirectory(cacheDirectory);
+    this._diskCache = cacheDirectory;
+
+    // Babel doesn't use the svelte or preprocessor versions in its cache keys
+    // so we instead use the versions in the cache path
+    const babelSuffix = `-babel-${this.svelte.VERSION}-${PREPROCESS_VERSION}`
+    this.babelCompiler.setDiskCacheDirectory(cacheDirectory + babelSuffix);
   }
 
   // The compile result returned from `compileOneFile` can be an array or an
@@ -151,17 +175,118 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       }
     }
 
-    if (this.postcss) {
-      code = (await this.svelte.preprocess(code, {
-        style: async ({ content, attributes }) => {
+    code = (await this.svelte.preprocess(code, {
+      script({ content, attributes }) {
+        // Reactive statements are not supported in the module script
+        if (attributes.context === 'module') {
+          return;
+        }
+
+        const ast = parse(content, {
+          parser: recastParser
+        });
+
+        let modified = false;
+        let uniqueIdCount = 0;
+        let injectedReactiveVars = [];
+
+        let { globals } = analyze(ast.program.body);
+
+        // Only look for top-level labels
+        for (let i = 0; i < ast.program.body.length; i++) {
+          let node = ast.program.body[i];
+
+          if (node.type === 'LabeledStatement' && node.label.name === '$m') {
+            modified = true;
+
+            // Check if we should add a variable declaration
+            // Svelte adds missing declarations for variables assigned to 
+            // in reactive assignment expressions, but due to how we wrap the
+            // reactive statement it is no longer detectable by Svelte
+            if (node.body.type === 'ExpressionStatement') {
+              let expression = node.body.expression;
+              if (
+                expression.type === 'AssignmentExpression' &&
+                expression.left.type !== 'MemberExpression'
+              ) {
+                extract_names(expression.left).forEach(name => {
+                  // Svelte's implementation does not inject declarations for variables
+                  // declared in the module scope. Variables in the module scope are never
+                  // reactive, but assigning to them in a reactive statement doesn't error.
+                  // Here we are not checking for that, which could cause runtime errors
+                  if (name[0] !== '$' && globals.has(name)) {
+                    injectedReactiveVars.push(name);
+                  }
+                });
+              }
+            }
+
+            ast.program.body[i] = b.labeledStatement(
+              b.identifier("$"),
+              b.expressionStatement(
+                b.callExpression(
+                  b.identifier(`${TRACKER_WRAPPER_PREFIX}${uniqueIdCount++}`),
+                  [
+                    b.arrowFunctionExpression(
+                      [],
+                      b.blockStatement([
+                        node.body
+                      ])
+                    )
+                  ]
+                )
+              )
+            );
+          }
+        }
+
+        if (modified) {
+          for (let i = 0; i < injectedReactiveVars.length; i++) {
+            ast.program.body.unshift(
+              b.variableDeclaration("let", [
+                b.variableDeclarator(
+                  b.identifier(injectedReactiveVars[i])
+                )
+              ])
+            );
+          }
+
+          for (let i = 0; i < uniqueIdCount; i++) {
+            ast.program.body.unshift(
+              b.variableDeclaration("const", [
+                b.variableDeclarator(
+                  b.identifier(`${TRACKER_WRAPPER_PREFIX}${i}`),
+                  b.callExpression(b.identifier(TRACKER_WRAPPER_CREATOR), [])
+                )
+              ]));
+          }
+
+          ast.program.body.unshift(
+            b.importDeclaration(
+              [
+                b.importSpecifier(
+                  b.identifier('createReactiveWrapper'),
+                  b.identifier(TRACKER_WRAPPER_CREATOR)
+                )
+              ],
+              b.literal('meteor/svelte:compiler/tracker')
+          ));
+        }
+
+        return {
+          code: modified ? print(ast).code : content
+        };
+      },
+      style: async ({ content, attributes }) => {
+        if (this.postcss) {
           if (attributes.lang == 'postcss') {
             return {
               code: await this.postcss.process(content, { from: undefined })
             }
           }
         }
-      })).code;
-    }
+      }
+    })).code;
 
     try {
       return this.transpileWithBabel(
@@ -227,7 +352,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     const babelConsumer = new sourcemap.SourceMapConsumer(babelMap);
     const svelteConsumer = new sourcemap.SourceMapConsumer(svelteMap);
 
-    babelConsumer.eachMapping(mapping => {
+    babelConsumer.eachMapping(mapping => {
       // Ignore mappings that don't have a source.
       if (!mapping.source) {
         return;

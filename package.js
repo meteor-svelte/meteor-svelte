@@ -22,17 +22,21 @@ Package.registerBuildPlugin({
     'find-up': '3.0.0',
     htmlparser2: '3.10.1',
     'postcss': '7.0.17',
-    'source-map': '0.5.6'
+    'source-map': '0.5.6',
+    'recast': '0.19.0',
+    'periscopic': '2.0.2'
   }
 });
 
 Package.onUse(function (api) {
   api.versionsFrom('1.8');
   api.use('isobuild:compiler-plugin@1.0.0');
+  api.use('modules');
+  api.use('tracker', 'client');
+  api.addFiles('tracker.js', 'client');
 
   // Dependencies for compiled Svelte components (taken from `ecmascript`).
   api.imply([
-    'modules',
     'ecmascript-runtime',
     'babel-runtime',
     'promise'
