@@ -2,6 +2,12 @@ import htmlparser from 'htmlparser2';
 import postcss from 'postcss';
 import sourcemap from 'source-map';
 
+
+// PREPROCESS_VERSION should be incremented whenever the preprocessor
+// is modified so that it produces different output given the same
+// input compared to an older version of the compiler
+const PREPROCESS_VERSION = 1;
+
 SvelteCompiler = class SvelteCompiler extends CachingCompiler {
   constructor(options = {}) {
     super({
@@ -41,13 +47,21 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       this.options,
       file.getPathInPackage(),
       file.getSourceHash(),
-      file.getArch()
+      file.getArch(),
+      {
+        svelteVersion: this.svelte.VERSION,
+        preprocessVersion: PREPROCESS_VERSION
+      }
     ];
   }
 
   setDiskCacheDirectory(cacheDirectory) {
-    this.cacheDirectory = cacheDirectory;
-    this.babelCompiler.setDiskCacheDirectory(cacheDirectory);
+    this._diskCache = cacheDirectory;
+
+    // Babel doesn't use the svelte or preprocessor versions in its cache keys
+    // so we instead use the versions in the cache path
+    const babelSuffix = `-babel-${this.svelte.VERSION}-${PREPROCESS_VERSION}`
+    this.babelCompiler.setDiskCacheDirectory(cacheDirectory + babelSuffix);
   }
 
   // The compile result returned from `compileOneFile` can be an array or an
