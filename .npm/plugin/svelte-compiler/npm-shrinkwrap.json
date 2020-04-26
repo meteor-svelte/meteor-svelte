@@ -64,9 +64,9 @@
       "integrity": "sha512-7AO748wWnIhNqAuaty2ZWHkQHRSNfPVIsPIfwEOWO22AmaoVrWavlOcMR5nzTLNYvp36X220/maaRsrec1G65A=="
     },
     "p-limit": {
-      "version": "2.2.1",
-      "resolved": "https://registry.npmjs.org/p-limit/-/p-limit-2.2.1.tgz",
-      "integrity": "sha512-85Tk+90UCVWvbDavCLKPOLC9vvY8OwEX/RtKF+/1OADJMVlFfEHOiMTPVyxg7mk/dKa+ipdHm0OUkTvCpMTuwg=="
+      "version": "2.3.0",
+      "resolved": "https://registry.npmjs.org/p-limit/-/p-limit-2.3.0.tgz",
+      "integrity": "sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w=="
     },
     "p-locate": {
       "version": "3.0.0",
@@ -84,14 +84,14 @@
       "integrity": "sha1-zg6+ql94yxiSXqfYENe1mwEP1RU="
     },
     "readable-stream": {
-      "version": "3.4.0",
-      "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-3.4.0.tgz",
-      "integrity": "sha512-jItXPLmrSR8jmTRmRWJXCnGJsfy85mB3Wd/uINMXA65yrnFo0cPClFIUWzo2najVNSl+mx7/4W8ttlLWJe99pQ=="
+      "version": "3.6.0",
+      "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-3.6.0.tgz",
+      "integrity": "sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA=="
     },
     "regenerator-runtime": {
-      "version": "0.13.3",
-      "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz",
-      "integrity": "sha512-naKIZz2GQ8JWh///G7L3X6LaQUAMp2lvb1rvwwsURe/VXwD6VMfr+/1NuNw3ag8v2kY1aQ/go5SNn79O9JU7yw=="
+      "version": "0.13.5",
+      "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz",
+      "integrity": "sha512-ZS5w8CpKFinUzOwW3c83oPeVXoNsrLsaCoLtJvAClH135j/R77RuymhiSErhm2lKcwSCIpmvIWSbDkIfAqKQlA=="
     },
     "safe-buffer": {
       "version": "5.2.0",
@@ -109,9 +109,9 @@
       "integrity": "sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA=="
     },
     "svelte": {
-      "version": "3.16.4",
-      "resolved": "https://registry.npmjs.org/svelte/-/svelte-3.16.4.tgz",
-      "integrity": "sha512-+9k0fWp6q2AW0Niap+AIjERoRV9ZTj2yr+33JtjYHAxFRwTGdsy6UYnNThyrUNZPBHdlnbTuEt2V8p07jJGiZQ=="
+      "version": "3.21.0",
+      "resolved": "https://registry.npmjs.org/svelte/-/svelte-3.21.0.tgz",
+      "integrity": "sha512-smh3LZKPCGJ+UXa0iZvUmuDctPYCwPY1opmClTWTm+l6e4y9FHLoCZMiue8YIeyc9JvlGT/EK0xry0diXjFDZQ=="
     },
     "util-deprecate": {
       "version": "1.0.2",
