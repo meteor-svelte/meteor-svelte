@@ -13,6 +13,13 @@ $ meteor npm install svelte@<version>
 
 **Important:** The version of the `svelte` npm package should match the version of `svelte:compiler`.
 
+To support legacy browsers, the package must be recompiled. This will be done automatically by Meteor by creating a symbolic link in the `imports` directory:
+
+```
+$ cd imports
+$ ln -s ../node_modules/svelte .
+```
+
 ## Options
 
 Compiler options can be specified with a `"svelte:compiler"` property in `package.json`. For example:
