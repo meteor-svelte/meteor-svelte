@@ -55,3 +55,4 @@ See the [Svelte API docs](https://svelte.dev/docs#Server-side_component_API), th
 * [Apollo integration](https://github.com/meteor-svelte/apollo-example)
 * [Tracker integration](https://github.com/meteor-svelte/tracker-example)
 * [Server-side rendering](https://github.com/meteor-svelte/ssr-example)
+* [Server-side rendering with Tracker integration](https://github.com/qnipp/meteor-svelte-tracker-ssr-example)
