@@ -1,6 +1,7 @@
 import htmlparser from 'htmlparser2';
 import sourcemap from 'source-map';
 import svelte from 'svelte/compiler';
+import sveltePreprocess from 'svelte-preprocess';
 
 SvelteCompiler = class SvelteCompiler extends CachingCompiler {
   constructor(options = {}) {
@@ -126,9 +127,28 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
       }
     }
 
+    let processed;
     try {
+      processed = Promise.await(svelte.preprocess(raw, sveltePreprocess(), {filename: path}));
+    } catch (e) {
+      // Throw unknown errors.
+      if (!e.location) {
+        throw e;
+      }
+
+      let message = e.message;
+
+      return file.error({
+        message,
+        line: e.location.first_line,
+        column: e.location.first_column
+      });
+    }
+
+    try {
+      
       return this.transpileWithBabel(
-        svelte.compile(raw, svelteOptions).js,
+        svelte.compile(processed.code, svelteOptions).js,
         path,
         arch === 'web.browser'
       );
