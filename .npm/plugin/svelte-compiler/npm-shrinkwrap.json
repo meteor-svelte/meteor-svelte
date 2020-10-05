@@ -12,14 +12,14 @@
       "integrity": "sha512-2/xPb3ORsQ42nHYiSunXkDjPLBaEj/xTwUO4B7XCZQTRk7EBtTOPaygh10YAAh2OI1Qrp6NWfpAhzswj0ydt9g==",
       "dependencies": {
         "domelementtype": {
-          "version": "2.0.1",
-          "resolved": "https://registry.npmjs.org/domelementtype/-/domelementtype-2.0.1.tgz",
-          "integrity": "sha512-5HOHUDsYZWV8FGWN0Njbr/Rn7f/eWSQi1v7+HsUVwXgn8nWWlL64zKDkS0n8ZmQ3mlWOMuXOnR+7Nx/5tMO5AQ=="
+          "version": "2.0.2",
+          "resolved": "https://registry.npmjs.org/domelementtype/-/domelementtype-2.0.2.tgz",
+          "integrity": "sha512-wFwTwCVebUrMgGeAwRL/NhZtHAUyT9n9yg4IMDwf10+6iCMxSkVq9MGCVEH+QZWo1nNidy8kNvwmv4zWHDTqvA=="
         },
         "entities": {
-          "version": "2.0.0",
-          "resolved": "https://registry.npmjs.org/entities/-/entities-2.0.0.tgz",
-          "integrity": "sha512-D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw=="
+          "version": "2.0.3",
+          "resolved": "https://registry.npmjs.org/entities/-/entities-2.0.3.tgz",
+          "integrity": "sha512-MyoZ0jgnLvB2X3Lg5HqpFmn1kybDiIfEQmKzTb5apr51Rb+T3KdmMiqa70T+bhGnyv7bQ6WMj2QMHpGMmlrUYQ=="
         }
       }
     },
@@ -89,14 +89,19 @@
       "integrity": "sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA=="
     },
     "regenerator-runtime": {
-      "version": "0.13.5",
-      "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz",
-      "integrity": "sha512-ZS5w8CpKFinUzOwW3c83oPeVXoNsrLsaCoLtJvAClH135j/R77RuymhiSErhm2lKcwSCIpmvIWSbDkIfAqKQlA=="
+      "version": "0.13.7",
+      "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz",
+      "integrity": "sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew=="
     },
     "safe-buffer": {
-      "version": "5.2.0",
-      "resolved": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.0.tgz",
-      "integrity": "sha512-fZEwUGbVl7kouZs1jCdMLdt95hdIv0ZeHg6L7qPeciMZhZ+/gdesW4wgTARkrFWEpspjEATAzUGPG8N2jJiwbg=="
+      "version": "5.2.1",
+      "resolved": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz",
+      "integrity": "sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ=="
+    },
+    "semver": {
+      "version": "5.5.0",
+      "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz",
+      "integrity": "sha512-4SJ3dm0WAwWy/NVeioZh5AntkdJoWKxHxcmyP622fOkgHa4z3R0TdBJICINyaSDE6uNwVc8gZr+ZinwZAH4xIA=="
     },
     "source-map": {
       "version": "0.5.6",
@@ -109,9 +114,9 @@
       "integrity": "sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA=="
     },
     "svelte": {
-      "version": "3.21.0",
-      "resolved": "https://registry.npmjs.org/svelte/-/svelte-3.21.0.tgz",
-      "integrity": "sha512-smh3LZKPCGJ+UXa0iZvUmuDctPYCwPY1opmClTWTm+l6e4y9FHLoCZMiue8YIeyc9JvlGT/EK0xry0diXjFDZQ=="
+      "version": "3.27.0",
+      "resolved": "https://registry.npmjs.org/svelte/-/svelte-3.27.0.tgz",
+      "integrity": "sha512-yF8+ikXVaLwP32GhGZ6lT69lXBJ1r9KsYq6W5wDCzpPexiWQydLtqV+Bbc6BYTYeUNEW4Zx+BSXIDp/QleGqRw=="
     },
     "util-deprecate": {
       "version": "1.0.2",
