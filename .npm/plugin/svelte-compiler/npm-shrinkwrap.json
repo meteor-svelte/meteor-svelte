@@ -12,9 +12,9 @@
       "integrity": "sha512-2/xPb3ORsQ42nHYiSunXkDjPLBaEj/xTwUO4B7XCZQTRk7EBtTOPaygh10YAAh2OI1Qrp6NWfpAhzswj0ydt9g==",
       "dependencies": {
         "domelementtype": {
-          "version": "2.1.0",
-          "resolved": "https://registry.npmjs.org/domelementtype/-/domelementtype-2.1.0.tgz",
-          "integrity": "sha512-LsTgx/L5VpD+Q8lmsXSHW2WpA+eBlZ9HPf3erD1IoPF00/3JKHZ3BknUVA2QGDNu69ZNmyFmCWBSO45XjYKC5w=="
+          "version": "2.2.0",
+          "resolved": "https://registry.npmjs.org/domelementtype/-/domelementtype-2.2.0.tgz",
+          "integrity": "sha512-DtBMo82pv1dFtUmHyr48beiuq792Sxohr+8Hm9zoxklYPfa6n0Z3Byjj2IV7bmr2IyqClnqEQhfgHJJ5QF0R5A=="
         },
         "entities": {
           "version": "2.2.0",
@@ -89,9 +89,9 @@
       "integrity": "sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA=="
     },
     "regenerator-runtime": {
-      "version": "0.13.7",
-      "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz",
-      "integrity": "sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew=="
+      "version": "0.13.9",
+      "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz",
+      "integrity": "sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA=="
     },
     "safe-buffer": {
       "version": "5.2.1",
@@ -114,9 +114,9 @@
       "integrity": "sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA=="
     },
     "svelte": {
-      "version": "3.31.2",
-      "resolved": "https://registry.npmjs.org/svelte/-/svelte-3.31.2.tgz",
-      "integrity": "sha512-TxZGrXzX2ggFH3BIKY5fmbeMdJuZrMIMDYPMX6R9255bueuYIuVaBQSLUeY2oD7W4IdeqRZiAVGCjDw2POKBRA=="
+      "version": "3.44.3",
+      "resolved": "https://registry.npmjs.org/svelte/-/svelte-3.44.3.tgz",
+      "integrity": "sha512-aGgrNCip5PQFNfq9e9tmm7EYxWLVHoFsEsmKrtOeRD8dmoGDdyTQ+21xd7qgFd8MNdKGSYvg7F9dr+Tc0yDymg=="
     },
     "util-deprecate": {
       "version": "1.0.2",
