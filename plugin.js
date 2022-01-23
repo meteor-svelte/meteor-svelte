@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import findUp from 'find-up';
 import semver from 'semver';
 
-const svelteVersion = '3.44.3';
+const svelteVersion = '3.46.2';
 
 let options;
 const pkgPath = findUp.sync('package.json');
