@@ -174,6 +174,7 @@ SvelteCompiler = class SvelteCompiler extends CachingCompiler {
     });
 
     options.filename = path;
+    options.sourceMaps = true;
 
     const transpiled = Babel.compile(source.code, options, {
       cacheDirectory: this.cacheDirectory
